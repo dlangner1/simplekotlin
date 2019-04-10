@@ -2,7 +2,20 @@
 
 println("UW Homework: Simple Kotlin")
 
-// write a "whenFn" that takes an arg of type "Any" and returns a String
+// write a "whenFn" function that takes an arg of type "Any" and returns a String
+
+fun whenFn(arg: Any): String {
+    var result = when(arg) {
+        "Hello" -> "world"
+        is String -> "Say what?"
+        0 -> "zero"
+        1 -> "one"
+        in 2..10 -> "low number"
+        is Int -> "a number"
+        else -> "I don't understand" 
+    }
+    return result
+}   
 
 // write an "add" function that takes two Ints, returns an Int, and adds the values
 // write a "sub" function that takes two Ints, returns an Int, and subtracts the values
