@@ -33,7 +33,55 @@ fun mathOp(a: Int, b: Int, op: (x: Int, y: Int) -> Int): Int {
 
 // write a class "Person" with first name, last name and age
 
+class Person(val firstName: String, val lastName: String, var age: Int) { 
+    val debugString get() = "[Person firstName:$firstName lastName:$lastName age:$age]"
+
+    fun equals(other: Person): Boolean {
+        return firstName == other.firstName 
+        && lastName == other.lastName 
+        && age == other.age
+    }
+}
+
 // write a class "Money"
+
+class Money(val amount: Int, val currency: String = "USD") {
+
+    public fun convert(newCurrency: String): Money {
+        var newAmount: Int = when(this.currency) {
+            "USD" -> convertUSDTo(newCurrency)
+            "GBP" -> convertGBPTo(newCurrency)
+            else -> this.amount
+        }
+        return Money(newAmount, newCurrency)
+    }
+
+    operator fun plus(other: Money): Money {
+        if (this.currency != other.currency) {
+            throw Exception("Conversion required!")
+        } else {
+            return Money(this.amount + other.amount, this.currency)
+        }
+    }
+
+    private fun convertUSDTo(newCurrency: String): Int {
+        return when(newCurrency) {
+            "GBP" -> this.amount / 2
+            "EUR" -> (this.amount * 1.5).toInt()
+            "CAN" -> (this.amount * 1.25).toInt()
+            else -> this.amount
+        }
+    }
+
+    private fun convertGBPTo(newCurrency: String): Int {
+        val result = when(newCurrency) {
+            "USD" -> this.amount * 2
+            "EUR" -> this.amount * 3
+            else -> this.amount
+        }
+        return result
+    }
+}
 
 // ============ DO NOT EDIT BELOW THIS LINE =============
 
