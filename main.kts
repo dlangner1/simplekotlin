@@ -57,11 +57,8 @@ class Money(val amount: Int, val currency: String = "USD") {
     }
 
     operator fun plus(other: Money): Money {
-        if (this.currency != other.currency) {
-            throw Exception("Conversion required!")
-        } else {
-            return Money(this.amount + other.amount, this.currency)
-        }
+        var convertedMoney = other.convert(this.currency)
+        return Money(this.amount + convertedMoney.amount, this.currency)
     }
 
     private fun convertUSDTo(newCurrency: String): Int {
